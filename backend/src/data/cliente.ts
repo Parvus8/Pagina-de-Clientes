@@ -14,7 +14,11 @@ export interface Cliente {
     city: string;
     state: string;
     postcode: number;
-  };
+    coordinates: {
+          latitude: string,
+          longitude: string
+        },
+};
 
   email: string;
 
