@@ -7,7 +7,7 @@ export interface Cliente {
     title: string;
     first: string;
     last: string;
-  };
+  },
 
   location: {
     street: string;
@@ -18,12 +18,25 @@ export interface Cliente {
           latitude: string,
           longitude: string
         },
-};
+    timezone: {
+      offset: string,
+      description: string
+    }
+  },
 
   email: string;
 
-  phone: string;
+  dob: {
+    date: string,
+    age: number
 
+  },
+  registeres: {
+    date: string,
+    age: number
+  },
+
+  phone: string;
   cell: string;
 
   picture: {
