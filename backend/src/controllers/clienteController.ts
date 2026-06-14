@@ -12,15 +12,9 @@ class ClienteController {
             name
         } = req.query;
 
-        const pageNumber =
-            typeof page === "string"
-                ? Number(page)
-                : 1;
-
-        const limitNumber =
-            typeof limit === "string"
-                ? Number(limit)
-                : 9;
+        const pageNumber = parseInt(page as string, 10) || 1;
+        
+        const limitNumber = parseInt(limit as string, 10) || 9;
 
         const stateFilter =
             typeof state === "string"
