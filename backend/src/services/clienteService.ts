@@ -9,7 +9,7 @@ class ClienteService {
         try {
 
             const response =
-                await axios.get(URL);
+                await axios.get("https://link.com");
 
             this.clientes =
                 response.data.results.map(
@@ -42,7 +42,7 @@ class ClienteService {
     ) {
         page = Math.max(1, page);
         limit = Math.max(1, limit);
-        let result = [...this.clientes];
+        let result = this.clientes;
 
         if (state) {
             result = result.filter(
