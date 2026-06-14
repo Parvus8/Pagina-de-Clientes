@@ -1,0 +1,47 @@
+import {Cliente} from "../../../backend/src/data/cliente"
+
+interface ClienteCardProp{
+    cliente: Cliente;
+    onClick: () => void;
+}
+
+export default function ClientCard({
+    cliente,
+    onClick
+}: ClienteCardProp) {
+
+    return (
+
+        <div
+            className="card"
+            onClick={onClick}
+        >
+
+            <img
+                src={cliente.picture.medium}
+                alt=""
+            />
+
+            <h3>
+                {cliente.name.first}
+                {" "}
+                {cliente.name.last}
+            </h3>
+
+            <p>
+                {cliente.location.street}
+            </p>
+
+            <p>
+                {cliente.location.city}
+            </p>
+
+            <p>
+                CEP:
+                {" "}
+                {cliente.location.postcode}
+            </p>
+
+        </div>
+    );
+}

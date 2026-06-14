@@ -55,16 +55,16 @@ class ClienteService {
 
         if (state) {
             result = result.filter(
-                client =>
-                    client.location.state.toLowerCase() === state.toLowerCase()
+                cliente=>
+                    cliente.location.state.toLowerCase() === state.toLowerCase()
             );
         }
 
         if (name) {
-            result = result.filter(client => {
+            result = result.filter(cliente=> {
 
                 const fullName =
-                    `${client.name.title} ${client.name.first} ${client.name.last}`;
+                    `${cliente.name.title} ${cliente.name.first} ${cliente.name.last}`;
                 return fullName
                     .toLowerCase()
                     .includes(name.toLowerCase());

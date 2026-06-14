@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    gap: 24px;
+    padding: 32px;
+}
+
+aside {
+    width: 240px;
+}
+
+main {
+    flex: 1;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.card img {
+    border-radius: 50%;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
