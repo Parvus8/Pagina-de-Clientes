@@ -1,15 +1,27 @@
 import { Cliente } from "../data/cliente.ts";
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class ClienteService {
-
+    
     private clientes: Cliente[] = [];
 
     async loadClientes() {
         try {
 
+            const url = process.env.URL;
+
+            if(!url){
+                throw new Error(
+                    "URL não configurada no ambiente!"
+                );
+                
+            }
+
             const response =
-                await axios.get("https://link.com");
+                await axios.get(url);
 
             this.clientes =
                 response.data.results.map(
