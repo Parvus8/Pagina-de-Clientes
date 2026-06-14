@@ -1,8 +1,5 @@
-import { Cliente } from "../data/cliente.ts";
+import { Cliente, RawCliente } from "../data/cliente";
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 class ClienteService {
     
@@ -25,7 +22,7 @@ class ClienteService {
 
             this.clientes =
                 response.data.results.map(
-                    (cliente: any, index: number) => ({
+                    (cliente: RawCliente, index: number) => ({
                         ...cliente,
                         id: String(index + 1)
                     })

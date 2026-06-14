@@ -3,8 +3,8 @@ import clienteController from "../controllers/clienteController";
 
 const router = Router();
 
-router.get("/clients", clienteController.list);
+router.get("/cliente", clienteController.list);
 
-router.get("/clients/:id", clienteController.getById);
+router.get("/cliente/:id", clienteController.getById);
 
 export default router;

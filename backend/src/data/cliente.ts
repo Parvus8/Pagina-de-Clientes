@@ -1,47 +1,22 @@
-export interface Cliente {
-  id: string;
-
+export interface RawCliente {
   gender: string;
-
-  name: {
-    title: string;
-    first: string;
-    last: string;
-  },
-
+  name: { title: string; first: string; last: string };
   location: {
     street: string;
     city: string;
     state: string;
     postcode: number;
-    coordinates: {
-          latitude: string,
-          longitude: string
-        },
-    timezone: {
-      offset: string,
-      description: string
-    }
-  },
-
+    coordinates: { latitude: string; longitude: string };
+    timezone: { offset: string; description: string };
+  };
   email: string;
-
-  dob: {
-    date: string,
-    age: number
-
-  },
-  registeres: {
-    date: string,
-    age: number
-  },
-
+  dob: { date: string; age: number };
+  registered: { date: string; age: number }
   phone: string;
   cell: string;
+  picture: { large: string; medium: string; thumbnail: string };
+}
 
-  picture: {
-    large: string;
-    medium: string;
-    thumbnail: string;
-  };
+export interface Cliente extends RawCliente {
+  id: string;
 }
