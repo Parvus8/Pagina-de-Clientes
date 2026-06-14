@@ -1,44 +1,56 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 
-import ClientCard from "../components/ClientCard";
-import Pagination from "../components/Pagination";
-import StateFilter from "../components/StateFilter";
-import ClientDetailsModal from "../components/ClientDetailsModal";
+import ClientCard from "../components/clienteCard";
+import Pagination from "../components/pagina";
+import StateFilter from "../components/filtroEstado";
+import ClientDetailsModal from "../components/clientesModal";
+import { Cliente } from "../types/cliente";
+
+interface PaginatedResponse {
+    total: number;
+    page: number;
+    limit: number;
+    data: Cliente[];
+}
 
 export default function ClientsPage() {
 
-    const [clients, setClients] = useState([]);
+    const [clients, setClients] = useState<Cliente[]>([]);
     const [page, setPage] = useState(1);
-
     const [total, setTotal] = useState(0);
-
     const [name, setName] = useState("");
+    const [nameInput, setNameInput]= useState("");
     const [state, setState] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [selectedcliente, setSelectedClient] = useState<Cliente | null>(null);
+    
 
-    const [selectedcliente,setSelectedClient] =
-        useState(null);
+    const handleStateChange = (s: string) => { setState(s); setPage(1); };
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => { setName(e.target.value); setPage(1); };
+
+    useEffect(() => {
+    const timer = setTimeout(() => {
+        setName(nameInput);
+        setPage(1);
+    }, 400);
+
+    return () => clearTimeout(timer); 
+}, [nameInput]);
 
     useEffect(() => {
 
-        api.get("/clients", {
-            params: {
-                page,
-                limit: 9,
-                state,
-                name
-            }
-        })
-        .then(response => {
-
-            setClients(
-                response.data.data
-            );
-
-            setTotal(
-                response.data.total
-            );
-        });
+        api.get<PaginatedResponse>("/cliente", { params: { page, limit: 9, state, name } })
+            .then(response => {
+                setClients(response.data.data);
+                setTotal(response.data.total);
+                setError(null);
+            })
+            .catch(() => {
+                setClients([]);
+                setTotal(0);
+                setError("Falha ao carregar clientes");
+            });
 
     }, [page, state, name]);
 
@@ -50,21 +62,21 @@ export default function ClientsPage() {
 
                 <StateFilter
                     state={state}
-                    onChange={setState}
+                    onChange={handleStateChange}
                 />
 
             </aside>
 
             <main>
 
+                {error && <p style={{ color: "red" }}>{error}</p>}
+
                 <div className="toolbar">
 
                     <input
                         placeholder="Buscar nome"
                         value={name}
-                        onChange={(e) =>
-                            setName(e.target.value)
-                        }
+                        onChange={(e) => setNameInput(e.target.value)}
                     />
 
                     <span>
@@ -77,14 +89,12 @@ export default function ClientsPage() {
 
                 <div className="grid">
 
-                    {clients.map(cliente=> (
+                    {clients.map(cliente => (
 
                         <ClientCard
                             key={cliente.id}
-                            client={client}
-                            onClick={() =>
-                                setSelectedClient(client)
-                            }
+                            cliente={cliente}
+                            onClick={() => setSelectedClient(cliente)}
                         />
 
                     ))}
@@ -101,10 +111,8 @@ export default function ClientsPage() {
             </main>
 
             <ClientDetailsModal
-                client={selectedClient}
-                onClose={() =>
-                    setSelectedClient(null)
-                }
+                cliente={selectedcliente}
+                onClose={() => setSelectedClient(null)}
             />
 
         </div>

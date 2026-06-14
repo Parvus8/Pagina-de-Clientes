@@ -1,7 +1,20 @@
+import { useEffect } from "react";
+import { Cliente } from "../types/cliente";
+
+interface ClienteModalProp {
+    cliente: Cliente | null;
+    onClose: () => void;
+}
+
 export default function ClientDetailsModal({
     cliente,
     onClose
-}) {
+}: ClienteModalProp) {
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        window.addEventListener("keydown", handler);
+        return () => window.removeEventListener("keydown", handler);
+    }, [onClose]);
 
     if (!cliente) {
         return null;
@@ -19,7 +32,7 @@ export default function ClientDetailsModal({
 
                 <img
                     src={cliente.picture.large}
-                    alt=""
+                    alt={`${cliente.name.first} ${cliente.name.last}`}
                 />
 
                 <h2>
@@ -31,9 +44,7 @@ export default function ClientDetailsModal({
                 <p>
                     Endereço:
                     {" "}
-                    {cliente.location.street.number}
-                    {" "}
-                    {cliente.location.street.name}
+                    {cliente.location.street}
                 </p>
 
                 <p>

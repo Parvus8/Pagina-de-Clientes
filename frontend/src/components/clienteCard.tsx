@@ -1,6 +1,6 @@
-import {Cliente} from "../../../backend/src/data/cliente"
+import type { Cliente } from "../types/cliente"
 
-interface ClienteCardProp{
+interface ClienteCardProp {
     cliente: Cliente;
     onClick: () => void;
 }
@@ -19,8 +19,12 @@ export default function ClientCard({
 
             <img
                 src={cliente.picture.medium}
-                alt=""
+                alt={`${cliente.name.first} ${cliente.name.last}`}
             />
+
+            <h2>
+                {cliente.id}
+            </h2>
 
             <h3>
                 {cliente.name.first}
