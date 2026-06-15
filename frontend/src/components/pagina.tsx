@@ -9,7 +9,10 @@ export default function Pagination({ page, total, limit, onChange }: PaginationP
     const totalPages = Math.ceil(total / limit);
     if (totalPages <= 1) return null;
 
-    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const half   = 1;
+    const start  = Math.max(1, Math.min(page - half, totalPages - 2));
+    const end    = Math.min(totalPages, start + 2);
+    const window = Array.from({ length: end - start + 1 }, (_, i) => start + i);
 
     return (
         <div className="pagination">
@@ -21,7 +24,7 @@ export default function Pagination({ page, total, limit, onChange }: PaginationP
                 ‹
             </button>
 
-            {pages.map(p => (
+            {window.map(p => (
                 <button
                     key={p}
                     className={`pagination-num${p === page ? " active" : ""}`}
