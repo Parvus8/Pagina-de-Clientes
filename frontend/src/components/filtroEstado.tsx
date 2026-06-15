@@ -19,7 +19,7 @@ const TODOS_ESTADOS = [
 ];
 
 function capitalizar(str: string) {
-    return str.replace(/\b\w/g, c => c.toUpperCase());
+    return str.replace(/\b\w/, c => c.toUpperCase());
 }
 
 interface StateFilterProp {
