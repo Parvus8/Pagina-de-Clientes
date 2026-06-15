@@ -23,7 +23,7 @@ export default function ClientsPage() {
     const [nameInput, setNameInput] = useState("");
     const [state, setState] = useState("");
     const [error, setError] = useState<string | null>(null);
-    const [selectedcliente, setSelectedClient] = useState<Cliente | null>(null);
+    const [selectedClient, setselectedClientnt] = useState<Cliente | null>(null);
 
     useEffect(() => { //Debounce
         const timer = setTimeout(() => {
@@ -70,7 +70,7 @@ export default function ClientsPage() {
 
                     <input
                         placeholder="Buscar nome"
-                        value={name}
+                        value={nameInput}
                         onChange={(e) => setNameInput(e.target.value)}
                     />
                     <span>
@@ -85,7 +85,7 @@ export default function ClientsPage() {
                         <ClientCard
                             key={cliente.id}
                             cliente={cliente}
-                            onClick={() => setSelectedClient(cliente)}
+                            onClick={() => setselectedClientnt(cliente)}
                         />
 
                     ))}
@@ -102,8 +102,8 @@ export default function ClientsPage() {
             </main>
 
             <ClientDetailsModal
-                cliente={selectedcliente}
-                onClose={() => setSelectedClient(null)}
+                cliente={selectedClient}
+                onClose={() => setselectedClientnt(null)}
             />
 
         </div>
