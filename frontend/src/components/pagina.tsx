@@ -1,4 +1,3 @@
-import { JSX } from "react";
 interface PaginationProps {
     page: number;
     total: number;
@@ -6,42 +5,39 @@ interface PaginationProps {
     onChange: (page: number) => void;
 }
 
-export default function Pagination({
-    page,
-    total,
-    limit,
-    onChange
-}: PaginationProps): JSX.Element {
+export default function Pagination({ page, total, limit, onChange }: PaginationProps) {
+    const totalPages = Math.ceil(total / limit);
+    if (totalPages <= 1) return null;
 
-    const pages =
-        Math.ceil(total / limit);
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     return (
-
         <div className="pagination">
-
             <button
+                className="pagination-arrow"
                 disabled={page === 1}
-                onClick={() =>
-                    onChange(page - 1)
-                }
+                onClick={() => onChange(page - 1)}
             >
-                ←
+                ‹
             </button>
 
-            <span>
-                Página {page}
-            </span>
+            {pages.map(p => (
+                <button
+                    key={p}
+                    className={`pagination-num${p === page ? " active" : ""}`}
+                    onClick={() => onChange(p)}
+                >
+                    {p}
+                </button>
+            ))}
 
             <button
-                disabled={page === pages}
-                onClick={() =>
-                    onChange(page + 1)
-                }
+                className="pagination-arrow"
+                disabled={page === totalPages}
+                onClick={() => onChange(page + 1)}
             >
-                →
+                ›
             </button>
-
         </div>
     );
 }

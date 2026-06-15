@@ -5,24 +5,17 @@ class ClienteController {
 
     async list(req: Request, res: Response, next: NextFunction) {
         try {
-            const {
-                page = "1",
-                limit = "9",
-                state,
-                name
-            } = req.query;
+            const { page = "1", limit = "9", state, name, sortBy } = req.query;
 
-            const pageNumber = parseInt(page as string, 10) || 1;
+            const pageNumber  = parseInt(page as string, 10) || 1;
             const limitNumber = Math.min(parseInt(limit as string, 10) || 9, 100);
 
-            const stateFilter = typeof state === "string" ? state : undefined;
-            const nameFilter = typeof name === "string" ? name : undefined;
+            const stateFilter  = typeof state  === "string" ? state  : undefined;
+            const nameFilter   = typeof name   === "string" ? name   : undefined;
+            const sortFilter   = typeof sortBy === "string" ? sortBy : undefined;
 
             const result = clienteService.getClientes(
-                pageNumber,
-                limitNumber,
-                stateFilter,
-                nameFilter
+                pageNumber, limitNumber, stateFilter, nameFilter, sortFilter
             );
 
             return res.json(result);

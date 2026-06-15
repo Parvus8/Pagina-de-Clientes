@@ -1,47 +1,33 @@
-import type { Cliente } from "../types/cliente"
+import type { Cliente } from "../types/cliente";
 
 interface ClienteCardProp {
     cliente: Cliente;
     onClick: () => void;
 }
 
-export default function ClientCard({
-    cliente,
-    onClick
-}: ClienteCardProp) {
-
+export default function ClientCard({ cliente, onClick }: ClienteCardProp) {
     return (
-
-        <div
-            className="card"
-            onClick={onClick}
-        >
-
+        <div className="card" onClick={onClick}>
             <img
                 src={cliente.picture.medium}
                 alt={`${cliente.name.first} ${cliente.name.last}`}
             />
-
-            <h3>
-                {cliente.name.first}
-                {" "}
-                {cliente.name.last}
-            </h3>
-
-            <p>
-                {cliente.location.street}
-            </p>
-
-            <p>
-                {cliente.location.city}
-            </p>
-
-            <p>
-                CEP:
-                {" "}
-                {cliente.location.postcode}
-            </p>
-
+            <div className="card-body">
+                <strong className="card-nome">
+                    {cliente.name.first} {cliente.name.last}
+                </strong>
+                <p>{cliente.location.street}</p>
+                <p>{cliente.location.city}</p>
+                <p>
+                    {capitalizar(cliente.location.state)}
+                    {" · "}
+                    CEP: {cliente.location.postcode}
+                </p>
+            </div>
         </div>
     );
+}
+
+function capitalizar(str: string) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
 }
