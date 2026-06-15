@@ -35,14 +35,15 @@ class ClienteService {
         name?: string,
         sortBy?: string
     ) {
-        page  = Math.max(1, page);
+        page = Math.max(1, page);
         limit = Math.max(1, limit);
 
         let result = [...this.clientes];
 
         if (state) {
+            const lista = state.split(",").map(s => s.toLowerCase());
             result = result.filter(c =>
-                c.location.state.toLowerCase() === state.toLowerCase()
+                lista.includes(c.location.state.toLowerCase())
             );
         }
 
