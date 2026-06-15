@@ -20,23 +20,20 @@ export default function ClientsPage() {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
     const [name, setName] = useState("");
-    const [nameInput, setNameInput]= useState("");
+    const [nameInput, setNameInput] = useState("");
     const [state, setState] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [selectedcliente, setSelectedClient] = useState<Cliente | null>(null);
-    
+
+    useEffect(() => { //Debounce
+        const timer = setTimeout(() => {
+            setName(nameInput);
+            setPage(1);
+        }, 400);
+        return () => clearTimeout(timer);
+    }, [nameInput]);
 
     const handleStateChange = (s: string) => { setState(s); setPage(1); };
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => { setName(e.target.value); setPage(1); };
-
-    useEffect(() => {
-    const timer = setTimeout(() => {
-        setName(nameInput);
-        setPage(1);
-    }, 400);
-
-    return () => clearTimeout(timer); 
-}, [nameInput]);
 
     useEffect(() => {
 
@@ -59,12 +56,10 @@ export default function ClientsPage() {
         <div className="container">
 
             <aside>
-
                 <StateFilter
                     state={state}
                     onChange={handleStateChange}
                 />
-
             </aside>
 
             <main>
@@ -78,13 +73,9 @@ export default function ClientsPage() {
                         value={name}
                         onChange={(e) => setNameInput(e.target.value)}
                     />
-
                     <span>
-                        Exibindo {clients.length}
-                        {" "}de{" "}
-                        {total}
+                        Exibindo {clients.length}{" "}de{" "}{total}
                     </span>
-
                 </div>
 
                 <div className="grid">
