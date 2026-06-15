@@ -23,7 +23,7 @@ export default function ClientesPage() {
     const [nameInput, setNameInput] = useState("");
     const [state, setState] = useState("");
     const [error, setError] = useState<string | null>(null);
-    const [selectedClient, setselectedClientnt] = useState<Cliente | null>(null);
+    const [selectedClient, setSelectedCliente] = useState<Cliente | null>(null);
 
     useEffect(() => { //Debounce
         const timer = setTimeout(() => {
@@ -85,7 +85,7 @@ export default function ClientesPage() {
                         <ClientCard
                             key={cliente.id}
                             cliente={cliente}
-                            onClick={() => setselectedClientnt(cliente)}
+                            onClick={() => setSelectedCliente(cliente)}
                         />
 
                     ))}
@@ -103,7 +103,7 @@ export default function ClientesPage() {
 
             <ClientDetailsModal
                 cliente={selectedClient}
-                onClose={() => setselectedClientnt(null)}
+                onClose={() => setSelectedCliente(null)}
             />
 
         </div>
