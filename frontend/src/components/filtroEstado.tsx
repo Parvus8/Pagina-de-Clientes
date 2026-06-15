@@ -1,4 +1,14 @@
-const estados = [
+import { useState } from "react";
+
+const ESTADOS_PRINCIPAIS = [
+    "são paulo",
+    "rio de janeiro",
+    "minas gerais",
+    "espírito santo",
+    "bahia"
+];
+
+const TODOS_ESTADOS = [
     "acre", "alagoas", "amapá", "amazonas", "bahia",
     "ceará", "distrito federal", "espírito santo", "goiás",
     "maranhão", "mato grosso", "mato grosso do sul", "minas gerais",
@@ -8,25 +18,50 @@ const estados = [
     "sergipe", "tocantins"
 ];
 
+function capitalizar(str: string) {
+    return str.replace(/\b\w/g, c => c.toUpperCase());
+}
+
 interface StateFilterProp {
     state: string;
     onChange: (state: string) => void;
 }
 
 export default function StateFilter({ state, onChange }: StateFilterProp) {
-    return (
-        <select
-            value={state}
-            onChange={(e) => onChange(e.target.value)}
-            style={{ textTransform: "capitalize" }}
-        >
-            <option value="">Todos os estados</option>
+    const [verTodos, setVerTodos] = useState(false);
 
-            {estados.map((estado) => (
-                <option key={estado} value={estado}>
-                    {estado}
-                </option>
-            ))}
-        </select>
+    const lista = verTodos ? TODOS_ESTADOS : ESTADOS_PRINCIPAIS;
+
+    return (
+        <div className="filtro-sidebar">
+            <h4 className="filtro-titulo">Por Estado</h4>
+
+            <ul className="filtro-lista">
+                {lista.map(estado => (
+                    <li key={estado}>
+                        <label className="filtro-item">
+                            <input
+                                type="checkbox"
+                                checked={state === estado}
+                                onChange={() =>
+                                    onChange(state === estado ? "" : estado)
+                                }
+                            />
+                            {capitalizar(estado)}
+                        </label>
+                    </li>
+                ))}
+            </ul>
+
+            <button
+                className="filtro-ver-todos"
+                onClick={() => {
+                    setVerTodos(v => !v);
+                    onChange("");
+                }}
+            >
+                {verTodos ? "Ver menos" : "Ver todos"}
+            </button>
+        </div>
     );
 }
