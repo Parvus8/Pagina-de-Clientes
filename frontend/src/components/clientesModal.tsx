@@ -36,9 +36,9 @@ export default function ClientDetailsModal({
                 />
 
                 <h2>
-                    {cliente.name.first}
+                    {capitalizar(cliente.name.first)}
                     {" "}
-                    {cliente.name.last}
+                    {capitalizar(cliente.name.last)}
                 </h2>
 
                 <p>
@@ -69,4 +69,8 @@ export default function ClientDetailsModal({
 
         </div>
     );
+}
+
+function capitalizar(str: string) {
+    return str.replace(/\b\w/, c => c.toUpperCase());
 }

@@ -15,14 +15,14 @@ interface PaginatedResponse {
 }
 
 export default function ClientesPage() {
-    const [clients, setClients]       = useState<Cliente[]>([]);
-    const [page, setPage]             = useState(1);
-    const [total, setTotal]           = useState(0);
-    const [nameInput, setNameInput]   = useState("");
-    const [name, setName]             = useState("");
-    const [state, setState]           = useState("");
-    const [sortBy, setSortBy]         = useState("nome");
-    const [error, setError]           = useState<string | null>(null);
+    const [clients, setClients] = useState<Cliente[]>([]);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const [nameInput, setNameInput] = useState("");
+    const [name, setName] = useState("");
+    const [state, setState] = useState("");
+    const [sortBy, setSortBy] = useState("nome");
+    const [error, setError] = useState<string | null>(null);
     const [selectedClient, setSelectedClient] = useState<Cliente | null>(null);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function ClientesPage() {
     }, [nameInput]);
 
     const handleStateChange = (s: string) => { setState(s); setPage(1); };
-    const handleSortChange  = (s: string) => { setSortBy(s); setPage(1); };
+    const handleSortChange = (s: string) => { setSortBy(s); setPage(1); };
 
     useEffect(() => {
         api.get<PaginatedResponse>("/cliente", {

@@ -14,8 +14,7 @@ export default function ClientCard({ cliente, onClick }: ClienteCardProp) {
             />
             <div className="card-body">
                 <strong className="card-nome">
-                    {cliente.name.first} {cliente.name.last}
-                </strong>
+                    {capitalizar(cliente.name.first)} {capitalizar(cliente.name.last)}              </strong>
                 <p>{cliente.location.street}</p>
                 <p>{cliente.location.city}</p>
                 <p>
@@ -29,5 +28,5 @@ export default function ClientCard({ cliente, onClick }: ClienteCardProp) {
 }
 
 function capitalizar(str: string) {
-    return str.replace(/\b\w/g, c => c.toUpperCase());
+    return str.replace(/\b\w/, c => c.toUpperCase());
 }
