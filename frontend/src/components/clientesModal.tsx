@@ -36,6 +36,8 @@ export default function ClientDetailsModal({
                 />
 
                 <h2>
+                    {capitalizar(cliente.title)}
+                    {" "}
                     {capitalizar(cliente.name.first)}
                     {" "}
                     {capitalizar(cliente.name.last)}
@@ -65,6 +67,16 @@ export default function ClientDetailsModal({
                     {cliente.location.postcode}
                 </p>
 
+                <p>
+                Email:
+                    {" "}
+                    {cliente.email}
+                <p/>
+                <p>
+                Telefone:
+                    {" "}
+                    {cliente.phone}
+                <p/>
             </div>
 
         </div>
