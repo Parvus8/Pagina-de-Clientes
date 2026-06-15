@@ -20,7 +20,7 @@ export default function ClientesPage() {
     const [total, setTotal] = useState(0);
     const [nameInput, setNameInput] = useState("");
     const [name, setName] = useState("");
-    const [state, setState] = useState("");
+    const [state, setStates] = useState<string[]>([]);
     const [sortBy, setSortBy] = useState("nome");
     const [error, setError] = useState<string | null>(null);
     const [selectedClient, setSelectedClient] = useState<Cliente | null>(null);
@@ -33,12 +33,12 @@ export default function ClientesPage() {
         return () => clearTimeout(timer);
     }, [nameInput]);
 
-    const handleStateChange = (s: string) => { setState(s); setPage(1); };
+    const handleStateChange = (s: string[]) => { setStates(s); setPage(1); };
     const handleSortChange = (s: string) => { setSortBy(s); setPage(1); };
 
     useEffect(() => {
         api.get<PaginatedResponse>("/cliente", {
-            params: { page, limit: 9, state, name, sortBy }
+            params: { page, limit: 9, states: state.join(","), name, sortBy }
         })
             .then(response => {
                 setClients(response.data.data);

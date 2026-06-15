@@ -23,14 +23,20 @@ function capitalizar(str: string) {
 }
 
 interface StateFilterProp {
-    state: string;
-    onChange: (state: string) => void;
+    state: string[];
+    onChange: (state: string[]) => void;
 }
 
 export default function StateFilter({ state, onChange }: StateFilterProp) {
     const [verTodos, setVerTodos] = useState(false);
-
     const lista = verTodos ? TODOS_ESTADOS : ESTADOS_PRINCIPAIS;
+
+    const toggle = (estado: string) => {
+        const atualizado = state.includes(estado)
+            ? state.filter(s => s !== estado)
+            : [...state, estado];
+        onChange(atualizado);
+    };
 
     return (
         <div className="filtro-sidebar">
@@ -42,10 +48,8 @@ export default function StateFilter({ state, onChange }: StateFilterProp) {
                         <label className="filtro-item">
                             <input
                                 type="checkbox"
-                                checked={state === estado}
-                                onChange={() =>
-                                    onChange(state === estado ? "" : estado)
-                                }
+                                checked={state.includes(estado)}
+                                onChange={() => toggle(estado)}
                             />
                             {capitalizar(estado)}
                         </label>
@@ -55,10 +59,7 @@ export default function StateFilter({ state, onChange }: StateFilterProp) {
 
             <button
                 className="filtro-ver-todos"
-                onClick={() => {
-                    setVerTodos(v => !v);
-                    onChange("");
-                }}
+                onClick={() => setVerTodos(v => !v)}
             >
                 {verTodos ? "Ver menos" : "Ver todos"}
             </button>
