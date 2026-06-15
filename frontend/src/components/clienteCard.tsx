@@ -22,10 +22,6 @@ export default function ClientCard({
                 alt={`${cliente.name.first} ${cliente.name.last}`}
             />
 
-            <h2>
-                {cliente.id}
-            </h2>
-
             <h3>
                 {cliente.name.first}
                 {" "}
