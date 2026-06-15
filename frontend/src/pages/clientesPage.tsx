@@ -14,7 +14,7 @@ interface PaginatedResponse {
     data: Cliente[];
 }
 
-export default function ClientsPage() {
+export default function ClientesPage() {
 
     const [clients, setClients] = useState<Cliente[]>([]);
     const [page, setPage] = useState(1);
